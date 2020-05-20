@@ -13,11 +13,20 @@ app.use(morgan('dev'));
 app.use('/api/v1', apiV1Router);
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-app.get('/*', function (req, res) {
+// for SPA routing
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+app.use((err, req, res) => {
+  console.error(err.stack)
+  res.status(500).send('Internal Server Error')
 });
 
 app.listen(process.env.PORT, () =>
