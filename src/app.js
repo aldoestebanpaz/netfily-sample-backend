@@ -6,13 +6,13 @@ const express = require('express');
 const morgan = require('morgan');
 const apiV1Router = require('./api/v1');
 
-exports.createExpressApp = () => {
+exports.createExpressApp = (baseUrl) => {
 
   const app = express();
   app.use(express.json());
   app.use(morgan('dev'));
 
-  app.use('/api/v1', apiV1Router);
+  app.use((baseUrl || '') + '/api/v1', apiV1Router);
 
   app.use(express.static(path.join(__dirname, 'public')));
   app.get('/', (req, res) => {
