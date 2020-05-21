@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    server: './index.js',
+    server: './src/server.js',
   },
   output: {
     path: path.join(__dirname, 'build'),
